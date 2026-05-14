@@ -1,0 +1,135 @@
+/**/
+public class EmailNotificationSystem {
+
+    // Send Email Method
+    public static void sendEmail() {
+
+        // Create Email Object
+        Messaging.SingleEmailMessage mail =
+            new Messaging.SingleEmailMessage();
+
+        // Recipient Email
+        String[] toAddresses =
+            new String[] {
+                'sharv.mahajan@gmail.com'
+            };
+
+        // Set Recipient
+        mail.setToAddresses(toAddresses);
+
+        // Set Subject
+        mail.setSubject(
+            'Salesforce Email Notification'
+        );
+
+        // Set Email Body
+        mail.setPlainTextBody(
+            'Hello,\n\n' +
+            'This is a test email sent using Apex updated ' +
+            'and Salesforce Messaging Service.\n\n' +
+            'Thank You.'
+        );
+
+        // Send Email
+        Messaging.SendEmailResult[] result = Messaging.sendEmail(
+                new Messaging.SingleEmailMessage[] {
+                    mail
+                }
+        );
+
+		// Debug Result
+        if(result[0].isSuccess()) {
+
+            System.debug(
+                'Email Sent Successfully'
+            );
+        }
+        else {
+
+            System.debug(
+                result[0].getErrors()[0].getMessage()
+            );
+        }
+    }
+}
+/**/
+/*  With Attachment
+public class EmailNotificationSystem {
+
+    public static void sendEmail() {
+
+        // Create Email Object
+        Messaging.SingleEmailMessage mail =
+            new Messaging.SingleEmailMessage();
+
+        // Recipient Email
+        mail.setToAddresses(
+            new String[] {
+                'sharv.mahajan@gmail.com'
+            }
+        );
+
+        // Subject
+        mail.setSubject(
+            'Salesforce Attachment Email'
+        );
+
+        // Body
+        mail.setPlainTextBody(
+            'Hello,\n\n' +
+            'This email contains attachment.\n\n' +
+            'Thank You.'
+        );
+
+        // Create Attachment
+        Messaging.EmailFileAttachment attachment =
+            new Messaging.EmailFileAttachment();
+
+        // File Name
+        attachment.setFileName(
+            'Sample.txt'
+        );
+
+        // File Content
+        attachment.setBody(
+            Blob.valueOf(
+                'Hello from Salesforce Apex Attachment'
+            )
+        );
+
+        // Content Type
+        attachment.setContentType(
+            'text/plain'
+        );
+
+        // Add Attachment
+        mail.setFileAttachments(
+            new Messaging.EmailFileAttachment[] {
+                attachment
+            }
+        );
+
+        // Send Email
+        Messaging.SendEmailResult[] result =
+            Messaging.sendEmail(
+                new Messaging.SingleEmailMessage[] {
+                    mail
+                }
+            );
+
+        // Debug Result
+        if(result[0].isSuccess()) {
+
+            System.debug(
+                'Email Sent Successfully'
+            );
+        }
+        else {
+
+            System.debug(
+                result[0].getErrors()[0].getMessage()
+            );
+        }
+    }
+}
+*/
